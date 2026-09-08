@@ -1,0 +1,70 @@
+openssl_conf = openssl_init
+
+[ openssl_init ]
+
+[ ca ]
+default_ca = CA_default
+
+
+[ CA_default ]
+dir               = C:/Users/israel.rodrigues/Desktop/pki-teste/CA
+certs             = C:/Users/israel.rodrigues/Desktop/pki-teste/CA/certs
+crl_dir           = C:/Users/israel.rodrigues/Desktop/pki-teste/CA/crl
+database          = C:/Users/israel.rodrigues/Desktop/pki-teste/CA/index.txt
+new_certs_dir     = C:/Users/israel.rodrigues/Desktop/pki-teste/CA/newcerts
+serial            = C:/Users/israel.rodrigues/Desktop/pki-teste/CA/serial
+crlnumber         = C:/Users/israel.rodrigues/Desktop/pki-teste/CA/crlnumber
+
+private_key = C:/Users/israel.rodrigues/Desktop/pki-teste/CA/private/Aurora-private-key.key
+certificate = C:/Users/israel.rodrigues/Desktop/pki-teste/CA/Aurora-CA.crt
+
+
+default_md        = sha512
+policy            = policy_loose
+
+default_days      = 3650
+default_crl_days  = 7
+
+x509_extensions   = v3_ca
+copy_extensions = copy
+
+
+[ policy_loose ]
+commonName             = supplied
+stateOrProvinceName    = optional
+countryName            = optional
+emailAddress           = optional
+organizationName       = optional
+organizationalUnitName = optional
+
+[ req ]
+default_bits        = 4096
+default_md          = sha512
+prompt              = no
+distinguished_name  = dn
+x509_extensions     = v3_ca
+
+[ dn ]
+C  = BR
+O  = AC Aurora 
+CN = AC Aurora 
+
+[ v3_ca ]
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints       = critical, CA:TRUE, pathlen:1
+keyUsage               = critical, keyCertSign, cRLSign
+
+[ v3_intermediate_ca ]
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints       = critical, CA:TRUE, pathlen:0
+keyUsage               = critical, keyCertSign, cRLSign
+
+
+[ v3_user ]
+basicConstraints       = CA:FALSE
+keyUsage               = digitalSignature, keyEncipherment
+authorityInfoAccess    = OCSP;URI:http://ocsp.ac-teste.local
+crlDistributionPoints  = URI:http://crl.ac-teste.local/ca.crl
+

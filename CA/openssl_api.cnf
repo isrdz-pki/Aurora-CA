@@ -1,0 +1,59 @@
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+dir               = ./CA
+
+database          = $dir/index.txt
+new_certs_dir     = $dir/newcerts
+serial            = $dir/serial
+crlnumber         = $dir/crlnumber
+
+certificate       = $dir/intermediate/certs/aurora-int.crt
+private_key       = $dir/intermediate/private/aurora-int.key
+
+
+default_md        = sha512
+policy            = policy_loose
+
+default_days      = 365
+default_crl_days  = 7
+
+# EXTENSÃO CORRETA PARA CERTIFICADO DE USUÁRIO
+x509_extensions   = v3_user
+copy_extensions   = copy
+
+# ----------------------------------------------------------------
+
+[ policy_loose ]
+commonName             = supplied
+stateOrProvinceName    = optional
+countryName            = optional
+emailAddress           = optional
+organizationName       = optional
+organizationalUnitName = optional
+
+# ----------------------------------------------------------------
+
+[ req ]
+default_bits        = 2048
+default_md          = sha512
+prompt              = no
+distinguished_name  = dn
+
+[ dn ]
+CN = placeholder
+
+# ----------------------------------------------------------------
+# EXTENSÃO DE CERTIFICADO DE USUÁRIO (FINAL)
+[ v3_user ]
+basicConstraints       = CA:FALSE
+keyUsage               = digitalSignature, keyEncipherment
+extendedKeyUsage       = clientAuth
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid,issuer
+
+# (opcional – só mantenha se esses endpoints existirem)
+# authorityInfoAccess    = OCSP;URI:http://ocsp.ac-teste.local
+
+# crlDistributionPoints  = URI:http://crl.ac-teste.local/ca.crl
