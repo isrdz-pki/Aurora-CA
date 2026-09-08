@@ -5,7 +5,7 @@
 //                3) pequenos guards + correções de SVG)
 // ========================================
 
-const API_BASE = "https://aurora-production-de38.up.railway.app";
+const API_BASE = "https://aurora-ca-production.up.railway.app";
 
 // Guarda o id do certificado gerado (até o usuário recarregar a página)
 let downloadId = sessionStorage.getItem("download_id") || null;
