@@ -17,7 +17,7 @@ app = FastAPI(title="Aurora CA API - DEBUG", version="999")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://isrdz-pki.github.io/",
+        "https://isrdz-pki.github.io",
     ],
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["Content-Type"],
